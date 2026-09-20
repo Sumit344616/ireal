@@ -1,0 +1,280 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Brand Palette - High Fashion Monochrome Ivory & Obsidian */
+    --color-black: #080808;
+    --color-charcoal: #141414;
+    --color-charcoal-light: #202020;
+    --color-ivory: #F4F1EA;
+    --color-ivory-muted: #D8D4CA;
+    --color-grey-light: #C4C0B6;
+    --color-grey: #9A9A9A;
+    --color-grey-dark: #5A5A5A;
+    --border-subtle: rgba(244, 241, 234, 0.12);
+    --border-dark: rgba(8, 8, 8, 0.12);
+
+    /* Typography Fonts */
+    --font-serif: "Cinzel", "Bodoni Moda", Georgia, serif;
+    --font-editorial: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+    --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Fluid Scales */
+    --text-hero: clamp(3rem, 7.5vw, 7.5rem);
+    --text-display: clamp(2.2rem, 5vw, 5.2rem);
+    --text-h1: clamp(1.8rem, 4vw, 4rem);
+    --text-h2: clamp(1.5rem, 3vw, 3rem);
+    --text-h3: clamp(1.15rem, 2.2vw, 2.2rem);
+    --text-body: clamp(0.95rem, 1.1vw, 1.125rem);
+    --text-meta: clamp(0.7rem, 0.85vw, 0.825rem);
+    --text-nano: 0.65rem;
+
+    /* Easings & Durations */
+    --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-sharp: cubic-bezier(0.25, 1, 0.5, 1);
+    --duration-fast: 0.3s;
+    --duration-normal: 0.6s;
+    --duration-slow: 1.2s;
+
+    /* Containers */
+    --container-max: 1540px;
+    --container-wide: 1800px;
+    --section-pad-y: clamp(5rem, 10vw, 12rem);
+    --section-pad-x: clamp(1.25rem, 4.5vw, 5rem);
+  }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  background-color: #080808;
+  color: #F4F1EA;
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #080808;
+  color: #F4F1EA;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Links & Buttons */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.3s var(--ease-luxury), color 0.3s var(--ease-luxury);
+}
+
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Next.js Image Protection */
+img:not([style*="position: absolute"]) {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Cinematic Film Grain Overlay */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Editorial Typography Classes */
+.font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.text-hero {
+  font-size: var(--text-hero);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  font-family: var(--font-serif);
+}
+
+.text-display {
+  font-size: var(--text-display);
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  font-family: var(--font-serif);
+}
+
+.text-meta {
+  font-size: var(--text-meta);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+/* Editorial Themes */
+.theme-ivory {
+  background-color: #F4F1EA;
+  color: #080808;
+  --border-subtle: rgba(8, 8, 8, 0.12);
+  --text-muted: #5A5A5A;
+}
+
+.theme-black {
+  background-color: #080808;
+  color: #F4F1EA;
+  --border-subtle: rgba(244, 241, 234, 0.12);
+  --text-muted: #9A9A9A;
+}
+
+.theme-charcoal {
+  background-color: #141414;
+  color: #F4F1EA;
+  --border-subtle: rgba(244, 241, 234, 0.12);
+  --text-muted: #9A9A9A;
+}
+
+/* Layout Utilities */
+.container-custom {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-pad-x);
+  padding-right: var(--section-pad-x);
+}
+
+.container-wide {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-pad-x);
+  padding-right: var(--section-pad-x);
+}
+
+.divider-line {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-subtle);
+}
+
+/* Editorial Buttons */
+.btn-ireal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1.15rem 2.6rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-luxury);
+  border: 1px solid currentColor;
+}
+
+.btn-ireal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: currentColor;
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease-luxury);
+  z-index: 0;
+}
+
+.btn-ireal span {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s var(--ease-luxury);
+}
+
+.btn-ireal:hover::before {
+  transform: translateY(0);
+}
+
+.btn-ireal-light:hover span {
+  color: #080808;
+}
+
+.btn-ireal-dark:hover span {
+  color: #F4F1EA;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #202020;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9A9A9A;
+}
+
+/* Explicit aspect ratio containers */
+.aspect-3-4 {
+  aspect-ratio: 3 / 4;
+}
+
+.aspect-4-5 {
+  aspect-ratio: 4 / 5;
+}
+
+.aspect-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

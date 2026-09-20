@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { CustomCursor } from "@/components/layout/CustomCursor";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { LoadingScreen } from "@/components/sections/LoadingScreen";
@@ -101,9 +100,6 @@ export default function RootLayout({
 
         {/* Minimalist Editorial Scroll Progress */}
         <ScrollProgress />
-
-        {/* Custom Desktop Magnetic Cursor */}
-        <CustomCursor />
 
         {/* Smooth Scroll Container with GSAP Integration */}
         <SmoothScroll>{children}</SmoothScroll>

@@ -164,6 +164,8 @@ export function Collection() {
     <section
       id="collection"
       ref={containerRef}
+      data-header-theme="white"
+      data-section-theme="dark"
       className="relative w-full bg-[#080808] text-[#F4F1EA] overflow-hidden"
     >
       {/* Pinned Viewport Container (No sticky, GSAP handles pin) */}

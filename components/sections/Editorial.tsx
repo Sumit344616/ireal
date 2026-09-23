@@ -165,6 +165,8 @@ export function Editorial() {
     <section
       id="editorial"
       ref={sectionRef}
+      data-header-theme="black"
+      data-section-theme="light"
       className="relative w-full bg-[#F4F1EA] text-[#080808] py-28 md:py-40 overflow-hidden"
     >
       <div className="container-custom">

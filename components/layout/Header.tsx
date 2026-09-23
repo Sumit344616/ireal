@@ -4,21 +4,71 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
+export type HeaderTheme = "white" | "black";
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<HeaderTheme>("white");
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+    let ticking = false;
+
+    const detectHeaderTheme = () => {
+      const scrollY = window.scrollY;
+      const scrolled = scrollY > 20;
+      setIsScrolled(scrolled);
+
+      // Probe point: 40px from viewport top (vertical center of the 80px header)
+      const probeY = 40;
+
+      // Query all sections with theme metadata
+      const themedSections = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          "[data-header-theme], [data-section-theme]"
+        )
+      );
+
+      let activeTheme: HeaderTheme = "white";
+
+      for (const section of themedSections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= probeY && rect.bottom > probeY) {
+          const headerThemeAttr = section.getAttribute("data-header-theme");
+          const sectionThemeAttr = section.getAttribute("data-section-theme");
+
+          if (headerThemeAttr === "white" || headerThemeAttr === "black") {
+            activeTheme = headerThemeAttr as HeaderTheme;
+          } else if (sectionThemeAttr === "light") {
+            // Light background section -> Black header for maximum contrast
+            activeTheme = "black";
+          } else if (sectionThemeAttr === "dark") {
+            // Dark background section -> White header for maximum contrast
+            activeTheme = "white";
+          }
+          break;
+        }
+      }
+
+      setCurrentTheme((prev) => (prev !== activeTheme ? activeTheme : prev));
+      ticking = false;
+    };
+
+    const onScrollOrResize = () => {
+      if (!ticking) {
+        requestAnimationFrame(detectHeaderTheme);
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    detectHeaderTheme();
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+    };
   }, []);
 
   const navItems = [
@@ -29,59 +79,116 @@ export function Header() {
     { label: "ABOUT", href: "#about" },
   ];
 
+  const isTransparent = !isScrolled;
+  const isDarkHeader = isScrolled && currentTheme === "black";
+  const isWhiteHeader = isScrolled && currentTheme === "white";
+
+  // Dynamic values calculated deterministically
+  const headerContainerClasses = isTransparent
+    ? "bg-transparent text-[#F4F1EA] border-b border-transparent"
+    : isDarkHeader
+    ? "bg-[#080808]/96 text-[#F4F1EA] border-b border-white/[0.1] shadow-[0_1px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+    : "bg-[#FDFAF4]/96 text-[#080808] border-b border-black/[0.1] shadow-[0_1px_30px_rgba(0,0,0,0.07)] backdrop-blur-xl";
+
+  const logoColor = isTransparent
+    ? "#F4F1EA"
+    : isDarkHeader
+    ? "#F4F1EA"
+    : "#080808";
+
+  const navLinkColor = isTransparent
+    ? "#C4C0B6"
+    : isDarkHeader
+    ? "#F4F1EA"
+    : "#080808";
+
+  const contactBtnBg = isTransparent
+    ? "rgba(255, 255, 255, 0.04)"
+    : isDarkHeader
+    ? "#F4F1EA"
+    : "#1A1A1A";
+
+  const contactBtnColor = isTransparent
+    ? "#F4F1EA"
+    : isDarkHeader
+    ? "#080808"
+    : "#FDFAF4";
+
+  const contactBtnBorder = isTransparent
+    ? "rgba(255, 255, 255, 0.22)"
+    : isDarkHeader
+    ? "#F4F1EA"
+    : "#1A1A1A";
+
   return (
     <>
-      {/* Luxury Minimalist Fixed Header */}
+      {/* Luxury Minimalist Fixed Header with Dynamic Section-Aware Adaptive Theming */}
       <header
-        className={`fixed top-0 left-0 w-full h-20 z-50 transition-all duration-500 flex items-center ${
-          isScrolled
-            ? "bg-[#080808]/90 backdrop-blur-md border-b border-white/10 shadow-2xl"
-            : "bg-[#080808]/60 backdrop-blur-sm border-b border-white/5"
-        }`}
+        className={`fixed top-0 left-0 w-full h-20 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center ${headerContainerClasses}`}
       >
         <div className="container-wide w-full flex items-center justify-between">
           {/* Brand Wordmark (Left) */}
           <Link
             href="/"
-            className="group flex items-center gap-3 cursor-pointer focus:outline-none"
+            className="group flex items-center cursor-pointer focus:outline-none"
           >
-            <span className="font-serif text-xl sm:text-2xl tracking-[0.38em] text-[#F4F1EA] font-semibold transition-transform duration-500 group-hover:scale-105">
+            <span
+              className="font-serif text-xl sm:text-2xl tracking-[0.38em] font-bold transition-all duration-500 group-hover:scale-105"
+              style={{ color: logoColor }}
+            >
               IREAL
-            </span>
-            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-white/40" />
-            <span className="hidden sm:inline-block font-sans text-[9px] tracking-[0.3em] text-[#9A9A9A] uppercase">
-              2026
             </span>
           </Link>
 
           {/* Editorial Navigation Links (Center - Desktop) */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-12 bg-black/40 px-6 py-2 rounded-full border border-white/8 backdrop-blur-md">
+          <nav className="hidden md:flex items-center gap-8 lg:gap-12">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="font-sans text-[11px] tracking-[0.22em] font-medium text-[#C4C0B6] hover:text-[#F4F1EA] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#F4F1EA] hover:after:w-full after:transition-all after:duration-300"
+                className="group/nav relative py-1 font-sans text-[11px] sm:text-[12px] tracking-[0.24em] font-semibold transition-all duration-300"
+                style={{ color: navLinkColor }}
               >
-                {item.label}
+                <span className="transition-opacity duration-300 group-hover/nav:opacity-60">
+                  {item.label}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-0 left-0 w-0 h-[1.5px] transition-all duration-300 group-hover/nav:w-full"
+                  style={{ backgroundColor: navLinkColor }}
+                />
               </a>
             ))}
           </nav>
 
-          {/* Contact Action (Right) */}
+          {/* Luxury Contact Action (Right) */}
           <div className="flex items-center gap-4">
             <a
               href="#contact"
-              data-cursor="cta"
-              className="hidden sm:inline-flex items-center gap-2 text-[11px] font-sans tracking-[0.22em] font-medium text-[#F4F1EA] border border-white/25 hover:border-white px-5 py-2 transition-all duration-300 hover:bg-[#F4F1EA] hover:text-[#080808]"
+              className={`group hidden sm:inline-flex items-center justify-center gap-2.5 h-[40px] px-7 rounded-full border transition-all duration-300 ease-out text-[11px] font-sans tracking-[0.24em] font-semibold shadow-sm ${
+                isDarkHeader
+                  ? "hover:!bg-white hover:!text-black"
+                  : isWhiteHeader
+                  ? "hover:!bg-neutral-800 hover:!text-white"
+                  : "hover:!bg-white hover:!text-[#080808]"
+              }`}
+              style={{
+                backgroundColor: contactBtnBg,
+                color: contactBtnColor,
+                borderColor: contactBtnBorder,
+              }}
             >
               <span>CONTACT</span>
-              <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+              <span className="text-xs transition-transform duration-300 group-hover:translate-x-1">
+                &rarr;
+              </span>
             </a>
 
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden text-[#F4F1EA] p-2 focus:outline-none"
+              className="md:hidden p-2 focus:outline-none transition-colors duration-300"
+              style={{ color: logoColor }}
               aria-label="Toggle Navigation Menu"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}

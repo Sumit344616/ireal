@@ -118,6 +118,8 @@ export function RowReveal() {
   return (
     <section
       ref={sectionRef}
+      data-header-theme="white"
+      data-section-theme="dark"
       className="relative w-full bg-[#080808] text-[#F4F1EA] py-28 md:py-36 overflow-hidden border-t border-white/10"
     >
       <div className="container-wide">

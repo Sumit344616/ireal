@@ -69,20 +69,22 @@ body {
   position: relative;
 }
 
-/* Links & Buttons */
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: opacity 0.3s var(--ease-luxury), color 0.3s var(--ease-luxury);
-}
+@layer base {
+  /* Links & Buttons */
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.3s var(--ease-luxury), color 0.3s var(--ease-luxury);
+  }
 
-button {
-  background: none;
-  border: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-  outline: none;
+  button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+  }
 }
 
 /* Next.js Image Protection */
@@ -91,7 +93,7 @@ img:not([style*="position: absolute"]) {
   height: auto;
 }
 
-/* Cinematic Film Grain Overlay */
+/* Cinematic Film Grain Overlay - very subtle */
 .film-grain {
   position: fixed;
   top: 0;
@@ -100,8 +102,9 @@ img:not([style*="position: absolute"]) {
   height: 100vh;
   pointer-events: none;
   z-index: 9990;
-  opacity: 0.032;
+  opacity: 0.028;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
 /* Editorial Typography Classes */
@@ -276,5 +279,121 @@ img:not([style*="position: absolute"]) {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Premium Micro-Interactions ─────────────────────────────────────────── */
+
+/* Footer link hover: elegant slide-underline */
+.footer-link {
+  position: relative;
+  display: inline-block;
+}
+.footer-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: rgba(196, 192, 182, 0.5);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* Nav link underline animation — editorial hairline */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-underline:hover::after {
+  width: 100%;
+}
+
+/* Smooth image hover zoom — editorial */
+.img-hover-zoom {
+  overflow: hidden;
+}
+.img-hover-zoom img,
+.img-hover-zoom > div {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-hover-zoom:hover img,
+.img-hover-zoom:hover > div {
+  transform: scale(1.04);
+}
+
+/* Marquee animation for any scrolling text bands */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee-x 28s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Atelier clock pulse dot */
+@keyframes atelier-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.3); }
+}
+.atelier-dot {
+  animation: atelier-pulse 2.8s ease-in-out infinite;
+}
+
+/* Custom cursor: CSS cursor:none is applied by the EditorialCursor component
+   via inline style injection on the body element for pointer-fine devices */
+@media (pointer: fine) {
+  /* Cursor is hidden and replaced by EditorialCursor React component */
+  html, body, * { cursor: none !important; }
+}
+
+/* Section fade-in keyframe for minor elements */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Letter-space shimmer hover — for brand wordmark elements */
+.wordmark-hover {
+  transition: letter-spacing 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease;
+}
+.wordmark-hover:hover {
+  letter-spacing: 0.5em;
+}
+
+/* Responsive Container Overrides for tighter padding on small screens */
+@media (max-width: 640px) {
+  .container-wide,
+  .container-custom {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 }

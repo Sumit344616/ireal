@@ -57,6 +57,8 @@ export function Campaign() {
   return (
     <section
       ref={containerRef}
+      data-header-theme="white"
+      data-section-theme="dark"
       className="relative w-full h-[100vh] min-h-[700px] bg-[#080808] text-[#F4F1EA] overflow-hidden flex items-center justify-center"
     >
       {/* Fullscreen Campaign Image with Slow Camera Push */}

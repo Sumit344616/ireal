@@ -32,11 +32,13 @@ export function ScrollProgress() {
   return (
     <div
       aria-hidden="true"
-      className="fixed right-3 md:right-6 top-1/4 h-1/2 w-[2px] bg-white/10 z-50 pointer-events-none hidden sm:block"
+      className="fixed right-4 md:right-7 top-[28%] h-[44%] w-px z-50 pointer-events-none hidden sm:block"
+      style={{ background: "rgba(255,255,255,0.06)" }}
     >
       <div
         ref={barRef}
-        className="w-full h-full bg-white/70 origin-top scale-y-0"
+        className="w-full h-full origin-top scale-y-0"
+        style={{ background: "rgba(244,241,234,0.55)" }}
       />
     </div>
   );

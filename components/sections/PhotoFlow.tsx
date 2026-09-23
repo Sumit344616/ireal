@@ -109,6 +109,8 @@ export function PhotoFlow() {
   return (
     <section
       ref={containerRef}
+      data-header-theme="white"
+      data-section-theme="dark"
       className="relative w-full h-[220vh] bg-[#080808] text-[#F4F1EA] overflow-hidden"
     >
       {/* Pinned Studio Table Viewport (No sticky, GSAP handles pin) */}

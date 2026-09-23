@@ -60,6 +60,8 @@ export function FinalCTA() {
     <section
       id="contact"
       ref={containerRef}
+      data-header-theme="white"
+      data-section-theme="dark"
       className="relative w-full min-h-[90vh] bg-[#080808] text-[#F4F1EA] py-32 md:py-48 flex items-center justify-center overflow-hidden border-t border-white/10"
     >
       {/* Background Campaign Ambient Texture */}

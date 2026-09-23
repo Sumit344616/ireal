@@ -137,6 +137,8 @@ export function ImageStack() {
   return (
     <section
       ref={containerRef}
+      data-header-theme="black"
+      data-section-theme="light"
       className="relative w-full h-[260vh] bg-[#F4F1EA] text-[#080808] overflow-hidden"
     >
       {/* Pinned Viewport (No sticky, GSAP handles pin) */}

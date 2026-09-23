@@ -125,6 +125,8 @@ export function BigTypographyTransition() {
   return (
     <section
       ref={containerRef}
+      data-header-theme="black"
+      data-section-theme="light"
       className="relative w-full h-[260vh] bg-[#F4F1EA] text-[#080808] overflow-hidden"
     >
       {/* Pinned Stage Container (No sticky, GSAP handles pin) */}

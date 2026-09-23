@@ -76,6 +76,8 @@ export function FinalStatement() {
   return (
     <section
       ref={containerRef}
+      data-header-theme="white"
+      data-section-theme="dark"
       className="relative w-full h-[180vh] bg-[#080808] text-[#F4F1EA] overflow-hidden"
     >
       {/* Pinned Viewport (No sticky, GSAP handles pin) */}

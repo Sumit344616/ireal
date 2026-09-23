@@ -93,6 +93,8 @@ export function Craft() {
     <section
       id="craft"
       ref={containerRef}
+      data-header-theme="white"
+      data-section-theme="dark"
       className="relative w-full h-[240vh] bg-[#080808] text-[#F4F1EA] overflow-hidden"
     >
       {/* Pinned Stage Container (No sticky, GSAP handles pin) */}

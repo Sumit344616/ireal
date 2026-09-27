@@ -5,7 +5,6 @@ import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { LoadingScreen } from "@/components/sections/LoadingScreen";
-import { EditorialCursor } from "@/components/layout/EditorialCursor";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -96,9 +95,6 @@ export default function RootLayout({
       >
         {/* Cinematic Film Grain Overlay */}
         <div className="film-grain" aria-hidden="true" />
-
-        {/* Premium Editorial Cursor (desktop / precise pointer only) */}
-        <EditorialCursor />
 
         {/* 1.8s Luxury Preloader with Curtain Opening Reveal */}
         <LoadingScreen />

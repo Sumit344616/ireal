@@ -25,10 +25,11 @@ export function Checks() {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=240%",
+          end: "+=1600",
           pin: pinWrap,
           scrub: 0.8,
           anticipatePin: 1,
+          refreshPriority: 7,
         },
       });
 
@@ -112,7 +113,7 @@ export function Checks() {
       ref={containerRef}
       data-header-theme="white"
       data-section-theme="dark"
-      className="relative w-full h-[240vh] bg-[#080808] text-[#F4F1EA] overflow-hidden"
+      className="relative w-full bg-[#080808] text-[#F4F1EA] overflow-hidden"
     >
       {/* Pinned Stage Container (No sticky, GSAP handles pin) */}
       <div

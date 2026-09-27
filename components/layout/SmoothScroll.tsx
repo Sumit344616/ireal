@@ -31,7 +31,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
+    // Ensure all pinned ScrollTriggers across all sections are ordered and calibrated
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+    }, 150);
+
     return () => {
+      clearTimeout(refreshTimer);
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
     };

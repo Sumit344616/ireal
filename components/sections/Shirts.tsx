@@ -32,10 +32,11 @@ export function Shirts() {
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=220%",
+          end: "+=1600",
           pin: pinWrap,
           scrub: 0.8,
           anticipatePin: 1,
+          refreshPriority: 8,
         },
       });
 
@@ -88,7 +89,7 @@ export function Shirts() {
       ref={containerRef}
       data-header-theme="white"
       data-section-theme="dark"
-      className="relative w-full h-[220vh] bg-[#080808] text-[#F4F1EA] overflow-hidden"
+      className="relative w-full bg-[#080808] text-[#F4F1EA] overflow-hidden"
     >
       {/* Pinned Stage Viewport (No sticky, GSAP handles pin) */}
       <div

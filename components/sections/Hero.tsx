@@ -42,6 +42,7 @@ export function Hero() {
           pin: pinTarget,
           scrub: 0.8,
           anticipatePin: 1,
+          refreshPriority: 10,
         },
       });
 
@@ -262,73 +263,68 @@ export function Hero() {
         {/* Cinematic Vignette */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/60 pointer-events-none z-20" />
 
-        {/* Primary Hero UI & Typography Composition */}
+        {/* Primary Hero UI & Typography Composition — Centered / Middle */}
         <div
           ref={lowerContentRef}
-          className="relative z-30 container-wide w-full h-full flex flex-col justify-end pt-32 pb-14 sm:pb-16 pointer-events-none"
+          className="relative z-30 container-custom w-full h-full flex flex-col justify-center items-center text-center pt-20 pointer-events-none"
         >
           {/* Main Typography Block */}
-          <div className="relative max-w-4xl mb-12 sm:mb-16">
+          <div className="relative w-full max-w-4xl flex flex-col items-center justify-center text-center">
             {/* Collection Metadata Pill */}
             <div
               ref={collectionPillRef}
-              className="flex items-center gap-3 mb-6 will-change-transform"
+              className="flex items-center justify-center gap-3 mb-6 sm:mb-8 will-change-transform"
             >
-              <span className="w-8 h-[1px] bg-white/50" />
-              <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#C4C0B6]">
+              <span className="w-6 sm:w-8 h-[1px] bg-white/50" />
+              <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.34em] uppercase text-[#E0DCD3] font-medium">
                 COLLECTION 01 &bull; EDITORIAL CAMPAIGN
               </span>
+              <span className="w-6 sm:w-8 h-[1px] bg-white/50" />
             </div>
 
-            {/* Headline 01: WEAR THE REAL. */}
+            {/* Headlines Stack Container */}
+            <div className="relative w-full flex items-center justify-center min-h-[18rem] sm:min-h-[22rem] md:min-h-[26rem]">
+              {/* Headline 01: WEAR THE REAL. */}
+              <div
+                ref={textOldRef}
+                className="relative w-full flex flex-col items-center justify-center text-center will-change-transform"
+              >
+                <h2 className="font-serif text-hero text-[#F4F1EA] font-normal leading-[0.95] tracking-[0.03em] uppercase drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+                  WEAR
+                  <br />
+                  THE
+                  <br />
+                  REAL.
+                </h2>
+              </div>
+
+              {/* Headline 02: REAL IS ENOUGH. (Sequenced after old text is completely gone) */}
+              <div
+                ref={textNewRef}
+                className="absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 will-change-transform pointer-events-none"
+              >
+                <h2 className="font-serif text-hero text-[#F4F1EA] font-normal leading-[0.95] tracking-[0.04em] uppercase drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+                  REAL
+                  <br />
+                  IS
+                  <br />
+                  ENOUGH.
+                </h2>
+              </div>
+            </div>
+
+            {/* Lower Hero Coordinates & Subtext (Centered, scroll to explore removed) */}
             <div
-              ref={textOldRef}
-              className="relative will-change-transform"
+              ref={metaRef}
+              className="flex items-center justify-center flex-wrap gap-3 sm:gap-4 text-center mt-6 sm:mt-8 will-change-transform"
             >
-              <h2 className="font-serif text-hero text-[#F4F1EA] font-normal leading-[0.95] tracking-[0.02em] uppercase">
-                WEAR
-                <br />
-                THE
-                <br />
-                REAL.
-              </h2>
-            </div>
-
-            {/* Headline 02: REAL IS ENOUGH. (Sequenced after old text is completely gone) */}
-            <div
-              ref={textNewRef}
-              className="absolute top-10 left-0 opacity-0 will-change-transform pointer-events-none"
-            >
-              <h2 className="font-serif text-hero text-[#F4F1EA] font-normal leading-[0.95] tracking-[0.04em] uppercase">
-                REAL
-                <br />
-                IS
-                <br />
-                ENOUGH.
-              </h2>
-            </div>
-          </div>
-
-          {/* Lower Hero Coordinates & Subtext */}
-          <div
-            ref={metaRef}
-            className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 text-[#9A9A9A] border-t border-white/10 pt-5 will-change-transform"
-          >
-            <div className="flex items-center gap-4">
-              <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-[#F4F1EA]">
+              <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-[#F4F1EA] font-medium">
                 PARIS &bull; MILAN
               </span>
               <span className="w-1 h-1 rounded-full bg-white/40" />
-              <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-[#C4C0B6]">
+              <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-[#C4C0B6]">
                 A STUDY IN RAW CONFIDENCE AND ARCHITECTURAL DRAPE.
               </p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-[1px] bg-white/40" />
-              <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-[#F4F1EA]">
-                SCROLL TO EXPLORE &rarr;
-              </span>
             </div>
           </div>
         </div>

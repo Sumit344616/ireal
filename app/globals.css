@@ -358,11 +358,13 @@ img:not([style*="position: absolute"]) {
   animation: atelier-pulse 2.8s ease-in-out infinite;
 }
 
-/* Custom cursor: CSS cursor:none is applied by the EditorialCursor component
-   via inline style injection on the body element for pointer-fine devices */
-@media (pointer: fine) {
-  /* Cursor is hidden and replaced by EditorialCursor React component */
-  html, body, * { cursor: none !important; }
+/* Typewriter Cursor Blink */
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.tw-cursor {
+  animation: tw-blink 0.75s step-end infinite;
 }
 
 /* Section fade-in keyframe for minor elements */

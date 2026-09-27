@@ -62,7 +62,7 @@ export function FinalCTA() {
       ref={containerRef}
       data-header-theme="white"
       data-section-theme="dark"
-      className="relative w-full min-h-[90vh] bg-[#080808] text-[#F4F1EA] py-32 md:py-48 flex items-center justify-center overflow-hidden border-t border-white/10"
+      className="relative w-full bg-[#080808] text-[#F4F1EA] pt-20 pb-14 sm:pt-28 sm:pb-16 flex items-center justify-center overflow-hidden border-t border-white/10"
     >
       {/* Background Campaign Ambient Texture */}
       <div className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
@@ -110,10 +110,6 @@ export function FinalCTA() {
             </div>
           </MagneticButton>
         </div>
-
-        <p className="font-sans text-[11px] tracking-[0.2em] text-[#5A5A5A] uppercase mt-16 max-w-sm">
-          CONFIDENTIAL BRAND INQUIRIES &bull; BESPOKE ARCHITECTURAL COLLABORATIONS
-        </p>
       </div>
     </section>
   );

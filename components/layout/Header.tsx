@@ -40,13 +40,10 @@ export function Header() {
           if (headerThemeAttr === "white" || headerThemeAttr === "black") {
             activeTheme = headerThemeAttr as HeaderTheme;
           } else if (sectionThemeAttr === "light") {
-            // Light background section -> Black header for maximum contrast
             activeTheme = "black";
           } else if (sectionThemeAttr === "dark") {
-            // Dark background section -> White header for maximum contrast
             activeTheme = "white";
           }
-          break;
         }
       }
 
@@ -81,7 +78,6 @@ export function Header() {
 
   const isTransparent = !isScrolled;
   const isDarkHeader = isScrolled && currentTheme === "black";
-  const isWhiteHeader = isScrolled && currentTheme === "white";
 
   // Dynamic values calculated deterministically
   const headerContainerClasses = isTransparent
@@ -102,23 +98,11 @@ export function Header() {
     ? "#F4F1EA"
     : "#080808";
 
-  const contactBtnBg = isTransparent
-    ? "rgba(255, 255, 255, 0.04)"
+  const contactBtnClass = isTransparent
+    ? "border-[#F4F1EA]/45 text-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#080808]"
     : isDarkHeader
-    ? "#F4F1EA"
-    : "#1A1A1A";
-
-  const contactBtnColor = isTransparent
-    ? "#F4F1EA"
-    : isDarkHeader
-    ? "#080808"
-    : "#FDFAF4";
-
-  const contactBtnBorder = isTransparent
-    ? "rgba(255, 255, 255, 0.22)"
-    : isDarkHeader
-    ? "#F4F1EA"
-    : "#1A1A1A";
+    ? "border-[#F4F1EA]/50 text-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#080808]"
+    : "border-[#080808] bg-[#080808] text-[#F4F1EA] hover:bg-transparent hover:text-[#080808]";
 
   return (
     <>
@@ -165,22 +149,14 @@ export function Header() {
           <div className="flex items-center gap-4">
             <a
               href="#contact"
-              className={`group hidden sm:inline-flex items-center justify-center gap-2.5 h-[40px] px-7 rounded-full border transition-all duration-300 ease-out text-[11px] font-sans tracking-[0.24em] font-semibold shadow-sm ${
-                isDarkHeader
-                  ? "hover:!bg-white hover:!text-black"
-                  : isWhiteHeader
-                  ? "hover:!bg-neutral-800 hover:!text-white"
-                  : "hover:!bg-white hover:!text-[#080808]"
-              }`}
-              style={{
-                backgroundColor: contactBtnBg,
-                color: contactBtnColor,
-                borderColor: contactBtnBorder,
-              }}
+              className={`group hidden sm:inline-flex items-center gap-2.5 h-9 pl-5 pr-4 rounded-full border text-[10px] font-sans tracking-[0.26em] font-semibold transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${contactBtnClass}`}
             >
               <span>CONTACT</span>
-              <span className="text-xs transition-transform duration-300 group-hover:translate-x-1">
-                &rarr;
+              <span
+                className="text-[11px] leading-none transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+              >
+                ↗
               </span>
             </a>
 

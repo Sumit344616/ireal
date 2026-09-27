@@ -284,25 +284,6 @@ img:not([style*="position: absolute"]) {
 
 /* ─── Premium Micro-Interactions ─────────────────────────────────────────── */
 
-/* Footer link hover: elegant slide-underline */
-.footer-link {
-  position: relative;
-  display: inline-block;
-}
-.footer-link::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: rgba(196, 192, 182, 0.5);
-  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.footer-link:hover::after {
-  width: 100%;
-}
-
 /* Nav link underline animation — editorial hairline */
 .nav-underline {
   position: relative;

@@ -1,158 +1,122 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  ArrowRight,
-  ArrowUp,
-  Check,
-} from "lucide-react";
+import styles from "./Footer.module.css";
 
-interface CustomIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: number;
+const LETTERS = ["I", "R", "E", "A", "L"] as const;
+
+const NAV = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Collection", href: "#collection" },
+      { label: "Editorial", href: "#editorial" },
+      { label: "Story", href: "#story" },
+    ],
+  },
+  {
+    title: "Maison",
+    links: [
+      { label: "Craft", href: "#craft" },
+      { label: "About", href: "#story" },
+      { label: "Atelier", href: "#contact" },
+    ],
+  },
+  {
+    title: "Connect",
+    links: [
+      { label: "Instagram", href: "https://instagram.com", external: true },
+      { label: "Journal", href: "#editorial" },
+      { label: "Vimeo", href: "https://vimeo.com", external: true },
+    ],
+  },
+  {
+    title: "Contact",
+    links: [
+      { label: "Appointments", href: "#contact" },
+      { label: "Email", href: "mailto:atelier@ireal.maison" },
+    ],
+  },
+] as const;
+
+type LetterPhysics = {
+  x: number;
+  y: number;
+  scale: number;
+  rot: number;
+  skew: number;
+  bright: number;
+  outline: number;
+  tx: number;
+  ty: number;
+  tScale: number;
+  tRot: number;
+  tSkew: number;
+  tBright: number;
+  tOutline: number;
+};
+
+function makePhysics(): LetterPhysics[] {
+  return LETTERS.map(() => ({
+    x: 0,
+    y: 0,
+    scale: 1,
+    rot: 0,
+    skew: 0,
+    bright: 1,
+    outline: 0,
+    tx: 0,
+    ty: 0,
+    tScale: 1,
+    tRot: 0,
+    tSkew: 0,
+    tBright: 1,
+    tOutline: 0,
+  }));
 }
 
-function InstagramIcon({ size = 16, ...props }: CustomIconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-    </svg>
+function FooterLink({
+  href,
+  children,
+  external,
+}: {
+  href: string;
+  children: string;
+  external?: boolean;
+}) {
+  const label = (
+    <span className={styles.navClip}>
+      <span className={styles.navClipTrack}>
+        <span>{children}</span>
+        <span aria-hidden="true">{children}</span>
+      </span>
+    </span>
   );
-}
 
-function GlobeIcon({ size = 16, ...props }: CustomIconProps) {
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.navLink}
+      >
+        {label}
+        <span className={styles.navArrow} aria-hidden="true">
+          ↗
+        </span>
+      </a>
+    );
+  }
+
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" x2="22" y1="12" y2="12" />
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    </svg>
+    <Link href={href} className={styles.navLink}>
+      {label}
+    </Link>
   );
-}
-
-function ArchiveIcon({ size = 16, ...props }: CustomIconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <polyline points="21 8 21 21 3 21 3 8" />
-      <rect width="22" height="5" x="1" y="3" />
-      <line x1="10" x2="14" y1="12" y2="12" />
-    </svg>
-  );
-}
-
-function VideoIcon({ size = 16, ...props }: CustomIconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <polygon points="23 7 16 12 23 17 23 7" />
-      <rect width="15" height="14" x="1" y="5" rx="2" ry="2" />
-    </svg>
-  );
-}
-
-// ── Directory Architecture ───────────────────────────────────────────────────
-const NAV_COLUMNS = [
-  {
-    title: "COLLECTION",
-    links: [
-      { label: "Permanent Line", href: "#collection" },
-      { label: "IREAL Core", href: "#essentials" },
-      { label: "Structured Poplin", href: "#shirts" },
-      { label: "Architectural Check", href: "#checks" },
-      { label: "Tailored Obsidian", href: "#collection" },
-    ],
-  },
-  {
-    title: "STORY",
-    links: [
-      { label: "The Manifesto", href: "#story" },
-      { label: "Material Truth", href: "#story" },
-      { label: "Structural Precision", href: "#story" },
-      { label: "Uncompromised Character", href: "#story" },
-      { label: "Atelier Philosophy", href: "#craft" },
-    ],
-  },
-  {
-    title: "EDITORIAL",
-    links: [
-      { label: "Runway Motion Study", href: "#editorial" },
-      { label: "Choreography", href: "#editorial" },
-      { label: "Anatomy In Detail", href: "#shirts" },
-      { label: "Campaign Archive", href: "#editorial" },
-      { label: "Physical Journal", href: "#editorial" },
-    ],
-  },
-  {
-    title: "CRAFT",
-    links: [
-      { label: "480GSM Pure Cotton", href: "#craft" },
-      { label: "Double-Knit Milano", href: "#craft" },
-      { label: "Two-Ply Egyptian Poplin", href: "#shirts" },
-      { label: "Yarn-Dyed Jacquard", href: "#checks" },
-      { label: "Garment Construction", href: "#craft" },
-    ],
-  },
-  {
-    title: "ABOUT",
-    links: [
-      { label: "The Maison", href: "#story" },
-      { label: "Paris & Milan Ateliers", href: "#story" },
-      { label: "Private Appointments", href: "#contact" },
-      { label: "Client Services", href: "#contact" },
-    ],
-  },
-];
-
-const ATELIER_LOCATIONS = [
-  {
-    country: "France",
-    flag: "🇫🇷",
-    address: "14 Rue Saint-Honoré, 75001 Paris",
-  },
-  {
-    country: "Italy",
-    flag: "🇮🇹",
-    address: "Via Montenapoleone 8, 20121 Milan",
-  },
-  {
-    country: "United States",
-    flag: "🇺🇸",
-    address: "520 West 28th St, Chelsea, NY 10001",
-  },
-  {
-    country: "Japan",
-    flag: "🇯🇵",
-    address: "5-7-22 Minami-Aoyama, Minato-ku, Tokyo",
-  },
-];
-
-const SOCIAL_BADGES = [
-  { label: "Instagram", href: "https://instagram.com", icon: InstagramIcon },
-  { label: "Journal", href: "#editorial", icon: GlobeIcon },
-  { label: "Archive", href: "#collection", icon: ArchiveIcon },
-  { label: "Vimeo", href: "https://vimeo.com", icon: VideoIcon },
-];
-
-const LETTERS = ["I", "R", "E", "A", "L"];
-
-interface LetterPhysicsState {
-  currentX: number;
-  currentY: number;
-  currentScale: number;
-  currentRotZ: number;
-  currentRotY: number;
-  currentRotX: number;
-  currentBrightness: number;
-  targetX: number;
-  targetY: number;
-  targetScale: number;
-  targetRotZ: number;
-  targetRotY: number;
-  targetRotX: number;
-  targetBrightness: number;
 }
 
 export function Footer() {
@@ -160,224 +124,232 @@ export function Footer() {
   const [subscribed, setSubscribed] = useState(false);
 
   const footerRef = useRef<HTMLElement>(null);
-  const topTierRef = useRef<HTMLDivElement>(null);
-  const directoryRef = useRef<HTMLDivElement>(null);
-  const wordmarkStageRef = useRef<HTMLDivElement>(null);
-  const letterDomRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const cursorLightRef = useRef<HTMLDivElement>(null);
+  const openingRef = useRef<HTMLDivElement>(null);
+  const midRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const lightRef = useRef<HTMLDivElement>(null);
   const legalRef = useRef<HTMLDivElement>(null);
+  const outerRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const innerRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const strokeRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // Per-letter real-time physics states
-  const physicsRef = useRef<LetterPhysicsState[]>(
-    LETTERS.map(() => ({
-      currentX: 0,
-      currentY: 0,
-      currentScale: 1,
-      currentRotZ: 0,
-      currentRotY: 0,
-      currentRotX: 0,
-      currentBrightness: 0.9,
-      targetX: 0,
-      targetY: 0,
-      targetScale: 1,
-      targetRotZ: 0,
-      targetRotY: 0,
-      targetRotX: 0,
-      targetBrightness: 0.9,
-    }))
-  );
+  const physicsRef = useRef<LetterPhysics[]>(makePhysics());
+  const mouseRef = useRef({ x: 0, y: 0, active: false });
+  const rafRef = useRef<number | null>(null);
+  const inViewRef = useRef(false);
+  const reduceRef = useRef(false);
+  const finePointerRef = useRef(true);
+  const motionAmpRef = useRef(1);
 
-  const mousePosRef = useRef<{ x: number; y: number; active: boolean }>({
-    x: 0,
-    y: 0,
-    active: false,
-  });
-  const rafIdRef = useRef<number | null>(null);
-
-  // ── Real-Time 60FPS Magnetic Physics Loop ───────────────────────────────────
-  const updatePhysicsLoop = useCallback(() => {
-    const stage = wordmarkStageRef.current;
-    const letters = letterDomRefs.current;
+  const tick = useCallback(() => {
+    const stage = stageRef.current;
+    const inners = innerRefs.current;
+    const fills = fillRefs.current;
+    const strokes = strokeRefs.current;
     const physics = physicsRef.current;
-    const mouse = mousePosRef.current;
+    const mouse = mouseRef.current;
+    const amp = motionAmpRef.current;
 
-    if (stage && letters.length > 0) {
+    if (stage && inViewRef.current && !reduceRef.current && finePointerRef.current) {
       const stageRect = stage.getBoundingClientRect();
-      const influenceRadius = Math.max(180, stageRect.width * 0.22);
-      const lerpFactor = 0.12;
+      const radius = Math.max(140, stageRect.width * 0.2);
+      const lerp = 0.13;
 
-      letters.forEach((letterEl, index) => {
-        if (!letterEl) return;
-        const pState = physics[index];
+      inners.forEach((el, i) => {
+        if (!el) return;
+        const p = physics[i];
 
         if (mouse.active) {
-          const letterRect = letterEl.getBoundingClientRect();
-          const letterCenterX = letterRect.left + letterRect.width / 2 - stageRect.left;
-          const letterCenterY = letterRect.top + letterRect.height / 2 - stageRect.top;
+          const rect = el.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2 - stageRect.left;
+          const cy = rect.top + rect.height / 2 - stageRect.top;
+          const dx = mouse.x - cx;
+          const dy = mouse.y - cy;
+          const dist = Math.hypot(dx, dy);
 
-          const dx = mouse.x - letterCenterX;
-          const dy = mouse.y - letterCenterY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < influenceRadius) {
-            const normDist = dist / influenceRadius;
-            const proximity = Math.pow(1 - normDist, 1.4);
-
-            const pullAngle = Math.atan2(dy, dx);
-            const moveDist = proximity * 26;
-
-            pState.targetX = Math.cos(pullAngle) * moveDist;
-            pState.targetY = Math.sin(pullAngle) * moveDist - proximity * 14;
-            pState.targetScale = 1 + proximity * 0.14;
-
-            pState.targetRotZ = -(dx / influenceRadius) * proximity * 18;
-            pState.targetRotY = (dx / influenceRadius) * proximity * 24;
-            pState.targetRotX = -(dy / influenceRadius) * proximity * 18;
-            pState.targetBrightness = 0.9 + proximity * 0.35;
+          if (dist < radius) {
+            const proximity = Math.pow(1 - dist / radius, 1.35);
+            const angle = Math.atan2(dy, dx);
+            const push = proximity * 18 * amp;
+            p.tx = Math.cos(angle) * push * 0.55;
+            p.ty = Math.sin(angle) * push * 0.45 - proximity * 8 * amp;
+            p.tScale = 1 + proximity * 0.045 * amp;
+            p.tRot = -(dx / radius) * proximity * 5 * amp;
+            p.tSkew = (dx / radius) * proximity * 4 * amp;
+            p.tBright = 1 + proximity * 0.18;
+            p.tOutline = proximity;
           } else {
-            pState.targetX = 0;
-            pState.targetY = 0;
-            pState.targetScale = 1;
-            pState.targetRotZ = 0;
-            pState.targetRotY = 0;
-            pState.targetRotX = 0;
-            pState.targetBrightness = 0.9;
+            p.tx = 0;
+            p.ty = 0;
+            p.tScale = 1;
+            p.tRot = 0;
+            p.tSkew = 0;
+            p.tBright = 1;
+            p.tOutline = 0;
           }
         } else {
-          pState.targetX = 0;
-          pState.targetY = 0;
-          pState.targetScale = 1;
-          pState.targetRotZ = 0;
-          pState.targetRotY = 0;
-          pState.targetRotX = 0;
-          pState.targetBrightness = 0.9;
+          p.tx = 0;
+          p.ty = 0;
+          p.tScale = 1;
+          p.tRot = 0;
+          p.tSkew = 0;
+          p.tBright = 1;
+          p.tOutline = 0;
         }
 
-        pState.currentX += (pState.targetX - pState.currentX) * lerpFactor;
-        pState.currentY += (pState.targetY - pState.currentY) * lerpFactor;
-        pState.currentScale += (pState.targetScale - pState.currentScale) * lerpFactor;
-        pState.currentRotZ += (pState.targetRotZ - pState.currentRotZ) * lerpFactor;
-        pState.currentRotY += (pState.targetRotY - pState.currentRotY) * lerpFactor;
-        pState.currentRotX += (pState.targetRotX - pState.currentRotX) * lerpFactor;
-        pState.currentBrightness += (pState.targetBrightness - pState.currentBrightness) * lerpFactor;
+        p.x += (p.tx - p.x) * lerp;
+        p.y += (p.ty - p.y) * lerp;
+        p.scale += (p.tScale - p.scale) * lerp;
+        p.rot += (p.tRot - p.rot) * lerp;
+        p.skew += (p.tSkew - p.skew) * lerp;
+        p.bright += (p.tBright - p.bright) * lerp;
+        p.outline += (p.tOutline - p.outline) * lerp;
 
-        letterEl.style.transform = `translate3d(${pState.currentX.toFixed(2)}px, ${pState.currentY.toFixed(2)}px, 0px) rotateZ(${pState.currentRotZ.toFixed(2)}deg) rotateY(${pState.currentRotY.toFixed(2)}deg) rotateX(${pState.currentRotX.toFixed(2)}deg) scale(${pState.currentScale.toFixed(3)})`;
-        letterEl.style.filter = `brightness(${pState.currentBrightness.toFixed(2)})`;
+        el.style.transform = `translate3d(${p.x.toFixed(2)}px, ${p.y.toFixed(2)}px, 0) rotate(${p.rot.toFixed(2)}deg) skewX(${p.skew.toFixed(2)}deg) scale(${p.scale.toFixed(3)})`;
+        el.style.filter = p.bright === 1 ? "none" : `brightness(${p.bright.toFixed(3)})`;
+
+        if (fills[i]) fills[i]!.style.opacity = String(1 - p.outline * 0.92);
+        if (strokes[i]) strokes[i]!.style.opacity = String(p.outline);
       });
 
-      if (cursorLightRef.current) {
+      if (lightRef.current) {
         if (mouse.active) {
-          cursorLightRef.current.style.opacity = "1";
-          cursorLightRef.current.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0px) translate(-50%, -50%)`;
+          lightRef.current.style.opacity = "1";
+          lightRef.current.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0) translate(-50%, -50%)`;
         } else {
-          cursorLightRef.current.style.opacity = "0";
+          lightRef.current.style.opacity = "0";
         }
       }
     }
 
-    rafIdRef.current = requestAnimationFrame(updatePhysicsLoop);
+    if (inViewRef.current && !reduceRef.current && finePointerRef.current) {
+      rafRef.current = requestAnimationFrame(tick);
+    } else {
+      rafRef.current = null;
+    }
   }, []);
 
   useEffect(() => {
-    rafIdRef.current = requestAnimationFrame(updatePhysicsLoop);
-    return () => {
-      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
-    };
-  }, [updatePhysicsLoop]);
+    const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mqFine = window.matchMedia("(pointer: fine)");
+    const mqTablet = window.matchMedia("(max-width: 1024px)");
 
-  const handleStagePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const stage = wordmarkStageRef.current;
+    const syncMedia = () => {
+      reduceRef.current = mqReduce.matches;
+      finePointerRef.current = mqFine.matches && window.innerWidth > 768;
+      motionAmpRef.current = mqTablet.matches ? 0.45 : 1;
+    };
+    syncMedia();
+
+    mqReduce.addEventListener("change", syncMedia);
+    mqFine.addEventListener("change", syncMedia);
+    mqTablet.addEventListener("change", syncMedia);
+
+    const footer = footerRef.current;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inViewRef.current = entry.isIntersecting;
+        if (entry.isIntersecting && rafRef.current === null) {
+          rafRef.current = requestAnimationFrame(tick);
+        }
+      },
+      { rootMargin: "20% 0px" }
+    );
+    if (footer) io.observe(footer);
+
+    return () => {
+      mqReduce.removeEventListener("change", syncMedia);
+      mqFine.removeEventListener("change", syncMedia);
+      mqTablet.removeEventListener("change", syncMedia);
+      io.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [tick]);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const footer = footerRef.current;
+    if (!footer) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const ctx = gsap.context(() => {
+      if (reduce) return;
+
+      const enter = gsap.timeline({
+        scrollTrigger: {
+          trigger: footer,
+          start: "top 86%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      enter.fromTo(
+        openingRef.current?.querySelector(`.${styles.metaRow}`) ?? null,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+        0
+      );
+      enter.fromTo(
+        openingRef.current?.querySelectorAll(`.${styles.headlineLine}`) ?? [],
+        { opacity: 0, y: 48 },
+        { opacity: 1, y: 0, duration: 1.15, stagger: 0.12, ease: "power3.out" },
+        0.12
+      );
+      enter.fromTo(
+        openingRef.current?.querySelector(`.${styles.support}`) ?? null,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+        0.32
+      );
+
+      const letters = outerRefs.current.filter(Boolean);
+      const tablet = window.innerWidth <= 1024;
+      letters.forEach((letter, i) => {
+        const dir = i - (letters.length - 1) / 2;
+        gsap.fromTo(
+          letter,
+          {
+            y: tablet ? 18 + i * 6 : 28 + i * 10,
+            x: dir * (tablet ? 10 : 18),
+            rotate: dir * (tablet ? 1.5 : 3),
+            opacity: 0.35,
+          },
+          {
+            y: 0,
+            x: 0,
+            rotate: 0,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: stageRef.current,
+              start: "top 88%",
+              end: "top 48%",
+              scrub: 1.2,
+            },
+          }
+        );
+      });
+    }, footer);
+
+    return () => ctx.revert();
+  }, []);
+
+  const onStageMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!finePointerRef.current || reduceRef.current) return;
+    const stage = stageRef.current;
     if (!stage) return;
     const rect = stage.getBoundingClientRect();
-    mousePosRef.current = {
+    mouseRef.current = {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
       active: true,
     };
   };
 
-  const handleStagePointerLeave = () => {
-    mousePosRef.current = {
-      x: 0,
-      y: 0,
-      active: false,
-    };
+  const onStageLeave = () => {
+    mouseRef.current.active = false;
   };
-
-  // ── GSAP Scroll Reveal Sequence ─────────────────────────────────────────────
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const footer = footerRef.current;
-    if (!footer) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: footer,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
-
-      // 1. Top Tier: Brand Statement & Newsletter
-      if (topTierRef.current) {
-        tl.fromTo(
-          topTierRef.current,
-          { opacity: 0, y: 35 },
-          { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
-          0
-        );
-      }
-
-      // 2. Directory columns
-      if (directoryRef.current) {
-        const columns = directoryRef.current.children;
-        tl.fromTo(
-          columns,
-          { opacity: 0, y: 25 },
-          { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: "power2.out" },
-          0.15
-        );
-      }
-
-      // 3. Signature IREAL Letters: Staggered Blur-to-Sharp
-      const letterEls = letterDomRefs.current.filter(Boolean);
-      if (letterEls.length > 0) {
-        tl.fromTo(
-          letterEls,
-          {
-            opacity: 0,
-            y: 65,
-            filter: "blur(14px)",
-            scale: 0.92,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            scale: 1,
-            duration: 1.25,
-            stagger: 0.07,
-            ease: "power3.out",
-          },
-          0.35
-        );
-      }
-
-      // 4. Legal strip
-      if (legalRef.current) {
-        tl.fromTo(
-          legalRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.8, ease: "power2.out" },
-          0.65
-        );
-      }
-    }, footer);
-
-    return () => ctx.revert();
-  }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -387,12 +359,7 @@ export function Footer() {
     }
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  const year = 2026;
 
   return (
     <footer
@@ -400,254 +367,162 @@ export function Footer() {
       id="about"
       data-header-theme="white"
       data-section-theme="dark"
-      className="relative w-full min-h-screen bg-[#080808] text-[#F4F1EA] overflow-hidden z-20 border-t border-white/[0.08] flex flex-col justify-between pt-16 sm:pt-20 lg:pt-24"
+      className={styles.footer}
+      style={{ scrollMarginTop: "5rem" }}
     >
-      {/* ── ZONE 1: BRAND IDENTITY & CONFIDENTIAL DISPATCH (2-COL TOP TIER) ── */}
-      <div ref={topTierRef} className="container-wide pb-16 sm:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Side: Brand Identity & Manifesto Statement */}
-          <div className="lg:col-span-6 flex flex-col justify-between h-full">
-            <div>
-              <Link
-                href="/"
-                className="inline-block font-serif text-2xl sm:text-3xl tracking-[0.28em] uppercase text-[#F4F1EA] font-normal hover:opacity-85 transition-opacity mb-5"
-              >
-                IREAL
-              </Link>
-              <p className="font-sans text-xs sm:text-[13px] leading-[1.85] tracking-[0.03em] text-[#9A9890] max-w-xl">
-                What happens when architectural precision meets uncompromised material
-                discipline? IREAL was established to redefine modern menswear through
-                structural form, monolithic silhouettes, and pure fabric integrity. From
-                our design ateliers in Paris and Milan to bespoke weaving mills across
-                Japan and Italy, every garment is engineered for enduring permanence.
-              </p>
-            </div>
-            <div className="mt-8 flex items-center gap-4 text-[9.5px] font-mono tracking-[0.25em] uppercase text-[#666]">
-              <span>PARIS</span>
-              <span>&bull;</span>
-              <span>MILAN</span>
-              <span>&bull;</span>
-              <span>NEW YORK</span>
-              <span>&bull;</span>
-              <span>TOKYO</span>
-            </div>
+      <div className={styles.inner}>
+        <div ref={openingRef} className={styles.opening}>
+          <div className={styles.metaRow}>
+            <span className={styles.meta}>Atelier 04 — Paris / Milan</span>
+            <span className={styles.meta}>Est. permanence</span>
           </div>
-
-          {/* Right Side: Confidential Dispatch Newsletter Form */}
-          <div className="lg:col-span-6 lg:pl-6 flex flex-col">
-            <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-[#A09D95] font-semibold block mb-2">
-              CONFIDENTIAL DISPATCH
-            </span>
-            <h3 className="font-serif text-base sm:text-lg tracking-[0.08em] text-[#F4F1EA] font-normal mb-2">
-              Get the freshest IREAL Atelier News
-            </h3>
-            <p className="font-sans text-xs tracking-[0.06em] text-[#8A877F] mb-6 leading-relaxed max-w-lg">
-              Receive private notifications for limited seasonal drops, archival presentations,
-              and private salon appointments.
+          <div className={styles.stage}>
+            <h2 className={styles.headline}>
+              <span className={styles.headlineLine}>Built to outlive</span>
+              <span className={styles.headlineLine}>the moment.</span>
+            </h2>
+            <p className={styles.support}>
+              Composed against the season — from the ateliers in Paris and Milan,
+              for a life beyond the calendar.
             </p>
+          </div>
+        </div>
+
+        <div ref={midRef} className={styles.mid}>
+          <div className={styles.dispatch}>
+            <div className={styles.dispatchHead}>
+              <span className={styles.dispatchLabel}>Private dispatch</span>
+              <span className={styles.dispatchCopy}>
+                Receive stories from the atelier.
+              </span>
+            </div>
 
             {subscribed ? (
-              <div className="flex items-center gap-3 py-4 px-5 bg-white/[0.03] border border-white/20 text-[#F4F1EA] text-xs font-sans tracking-[0.16em] uppercase">
-                <Check size={14} className="text-emerald-400 shrink-0" />
-                <span>Invitation Confirmed &bull; Welcome To The Atelier Archive.</span>
-              </div>
+              <p className={styles.thanks}>The atelier has your name.</p>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col gap-2.5 max-w-xl">
-                <div className="flex flex-col sm:flex-row items-stretch border border-white/20 focus-within:border-white transition-colors duration-300 bg-white/[0.02]">
+              <form className={styles.form} onSubmit={handleSubscribe}>
+                <div className={styles.field}>
                   <input
+                    className={styles.input}
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="ENTER YOUR EMAIL FOR ATELIER ACCESS"
-                    className="flex-1 bg-transparent px-4 py-3.5 text-xs tracking-[0.18em] uppercase text-[#F4F1EA] placeholder-[#666] focus:outline-none font-sans"
+                    placeholder="Your email address"
+                    aria-label="Email for private dispatch"
+                    autoComplete="email"
                   />
-                  <button
-                    type="submit"
-                    aria-label="Subscribe to atelier dispatch"
-                    className="group px-6 py-3.5 bg-[#F4F1EA] text-[#080808] hover:bg-white transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer shrink-0"
-                  >
-                    <span className="font-sans text-[10px] tracking-[0.24em] uppercase font-bold">
-                      SUBSCRIBE
-                    </span>
-                    <ArrowRight
-                      size={13}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    />
-                  </button>
+                  <span className={styles.hairline} aria-hidden="true" />
+                  <span className={styles.sweep} aria-hidden="true" />
                 </div>
-                <span className="font-sans text-[8.5px] tracking-[0.2em] uppercase text-[#555] mt-1">
-                  Confidential &bull; Zero Spam &bull; Unsubscribe At Any Time
-                </span>
+                <button type="submit" className={styles.join}>
+                  Join
+                  <span className={styles.joinArrow} aria-hidden="true">
+                    ↗
+                  </span>
+                </button>
               </form>
             )}
           </div>
-        </div>
-      </div>
 
-      {/* ── ZONE 2: 5-COLUMN DIRECTORY WITH CHEVRONS (MATCHING REFERENCE SAMPLE) ── */}
-      <div className="border-t border-white/[0.08] py-16 sm:py-20">
-        <div className="container-wide">
-          <div
-            ref={directoryRef}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12"
-          >
-            {NAV_COLUMNS.map((column, colIndex) => (
-              <div key={column.title} className="flex flex-col">
-                <h4 className="font-sans text-xs tracking-[0.26em] uppercase text-[#F4F1EA] font-semibold mb-6 pb-2.5 border-b border-white/[0.08]">
-                  {column.title}
-                </h4>
-                <ul className="space-y-3.5">
-                  {column.links.map((link) => (
+          <nav className={styles.nav} aria-label="Footer">
+            {NAV.map((group) => (
+              <div key={group.title} className={styles.navGroup}>
+                <h3 className={styles.navTitle}>{group.title}</h3>
+                <ul className={styles.navList}>
+                  {group.links.map((link) => (
                     <li key={link.label}>
-                      <Link
+                      <FooterLink
                         href={link.href}
-                        className="group flex items-center gap-2 font-sans text-xs tracking-[0.12em] uppercase text-[#8A877F] hover:text-[#F4F1EA] transition-colors duration-300"
+                        external={"external" in link ? link.external : false}
                       >
-                        {/* Reference sample chevron › prefix */}
-                        <span className="text-[#555] group-hover:text-[#F4F1EA] transition-colors duration-300 font-mono text-[13px] leading-none select-none">
-                          &#8250;
-                        </span>
-                        <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                          {link.label}
-                        </span>
-                      </Link>
+                        {link.label}
+                      </FooterLink>
                     </li>
                   ))}
                 </ul>
-
-                {/* In the 5th column (ABOUT), append Atelier Locations & Social Badges */}
-                {colIndex === 4 && (
-                  <div className="mt-8 pt-6 border-t border-white/[0.08] flex flex-col space-y-4">
-                    <span className="font-sans text-[9.5px] tracking-[0.28em] uppercase text-[#A09D95] font-semibold">
-                      OUR ATELIERS
-                    </span>
-                    <div className="space-y-2.5">
-                      {ATELIER_LOCATIONS.slice(0, 2).map((loc) => (
-                        <div key={loc.country} className="flex items-start gap-2 text-[10px] text-[#777] font-sans">
-                          <span className="text-xs">{loc.flag}</span>
-                          <span className="tracking-[0.06em] leading-tight">{loc.country}: {loc.address}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Social Media Circular Pill Buttons (Matching Reference Sample) */}
-                    <div className="pt-2 flex items-center gap-2.5">
-                      {SOCIAL_BADGES.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <a
-                            key={item.label}
-                            href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`IREAL on ${item.label}`}
-                            className="w-8 h-8 rounded-full border border-white/20 hover:border-white hover:bg-white hover:text-[#080808] flex items-center justify-center text-[#888] transition-all duration-300 cursor-pointer"
-                          >
-                            <Icon size={13} />
-                          </a>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
-          </div>
+          </nav>
         </div>
       </div>
 
-      {/* ── ZONE 3: SIGNATURE MOMENT — INTERACTIVE MAGNETIC "IREAL" WORDMARK ── */}
       <div
-        ref={wordmarkStageRef}
-        onPointerMove={handleStagePointerMove}
-        onPointerLeave={handleStagePointerLeave}
-        className="relative w-full overflow-hidden select-none py-16 sm:py-24 flex items-center justify-center cursor-default border-t border-white/[0.08]"
-        style={{
-          perspective: "1200px",
-          transformStyle: "preserve-3d",
-        }}
+        ref={stageRef}
+        className={styles.wordmarkStage}
+        onPointerMove={onStageMove}
+        onPointerLeave={onStageLeave}
       >
-        {/* Cursor Specular Highlight Sweep Layer */}
-        <div
-          ref={cursorLightRef}
-          aria-hidden="true"
-          className="absolute top-0 left-0 w-[460px] h-[460px] rounded-full bg-radial from-white/[0.08] via-white/[0.02] to-transparent blur-2xl pointer-events-none opacity-0 transition-opacity duration-400 will-change-transform z-0"
-        />
+        <div className={styles.grid} aria-hidden="true" />
+        <span className={styles.ghostGlyph} aria-hidden="true">
+          R
+        </span>
+        <div ref={lightRef} className={styles.light} aria-hidden="true" />
+        <span className={styles.coords} aria-hidden="true">
+          48.86° N · 2.35° E
+        </span>
 
-        {/* Individual Magnetic Letters Stage */}
-        <div
-          className="relative z-10 flex items-center justify-center gap-1 sm:gap-3 md:gap-6 lg:gap-8 px-4 w-full"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          <div
-            aria-label="IREAL"
-            className="flex items-center justify-center uppercase font-serif font-normal select-none leading-none w-full"
-            style={{
-              fontSize: "clamp(4.5rem, 19vw, 18rem)",
-              transformStyle: "preserve-3d",
-            }}
-          >
-            {LETTERS.map((char, index) => (
+        <div className={styles.wordmark} aria-label="IREAL">
+          {LETTERS.map((char, index) => (
+            <span
+              key={char}
+              ref={(el) => {
+                outerRefs.current[index] = el;
+              }}
+              className={styles.letterOuter}
+            >
               <span
-                key={index}
                 ref={(el) => {
-                  letterDomRefs.current[index] = el;
+                  innerRefs.current[index] = el;
                 }}
-                className="inline-block text-[#F4F1EA] will-change-transform transition-colors duration-200"
-                style={{
-                  transformStyle: "preserve-3d",
-                  textShadow: "0 0 35px rgba(0,0,0,0.95)",
-                }}
+                className={styles.letterInner}
               >
-                {char}
+                <span
+                  ref={(el) => {
+                    fillRefs.current[index] = el;
+                  }}
+                  className={styles.glyph}
+                >
+                  {char}
+                </span>
+                <span
+                  ref={(el) => {
+                    strokeRefs.current[index] = el;
+                  }}
+                  className={styles.glyphStroke}
+                  aria-hidden="true"
+                >
+                  {char}
+                </span>
               </span>
-            ))}
-          </div>
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* ── ZONE 4: BOTTOM LEGAL STRIP & SCROLL-TO-TOP BUTTON ────────────────── */}
-      <div
-        ref={legalRef}
-        className="relative z-10 border-t border-white/[0.08] py-8 text-[#777]"
-      >
-        <div className="container-wide flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Copyright & Legal Links */}
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 font-sans text-[10px] tracking-[0.2em] uppercase text-[#777]">
-            <span>Copyright &copy; {new Date().getFullYear()} IREAL MAISON. All Rights Reserved.</span>
-            <span className="hidden sm:inline text-[#333]">|</span>
-            <Link
-              href="#story"
-              className="hover:text-[#F4F1EA] transition-colors duration-300"
-            >
-              Terms of Atelier
-            </Link>
-            <span className="hidden sm:inline text-[#333]">|</span>
-            <Link
-              href="#story"
-              className="hover:text-[#F4F1EA] transition-colors duration-300"
-            >
-              Privacy Policy
-            </Link>
-            <span className="hidden sm:inline text-[#333]">|</span>
-            <Link
-              href="#story"
-              className="hover:text-[#F4F1EA] transition-colors duration-300"
-            >
-              Architectural Credits
-            </Link>
-          </div>
-
-          {/* Reference Sample: Scroll To Top Circular Button */}
-          <button
-            onClick={scrollToTop}
-            aria-label="Scroll back to top"
-            className="w-10 h-10 rounded-full border border-white/20 hover:border-white hover:bg-[#F4F1EA] hover:text-[#080808] flex items-center justify-center text-[#999] transition-all duration-300 cursor-pointer shrink-0"
-          >
-            <ArrowUp size={16} />
-          </button>
+      <div ref={legalRef} className={`${styles.inner} ${styles.legal}`}>
+        <div className={styles.legalGroup}>
+          <span>© {year} Ireal Maison</span>
+          <span>Paris · Milan · Tokyo</span>
         </div>
+        <div className={styles.legalLinks}>
+          <Link href="#story" className={styles.legalLink}>
+            Privacy
+          </Link>
+          <Link href="#story" className={styles.legalLink}>
+            Terms
+          </Link>
+          <Link href="#story" className={styles.legalLink}>
+            Credits
+          </Link>
+        </div>
+        <button
+          type="button"
+          className={`${styles.legalLink} ${styles.topLink}`}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          Top
+        </button>
       </div>
     </footer>
   );

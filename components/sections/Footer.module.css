@@ -1,0 +1,570 @@
+/* IREAL cinematic footer — isolated from global chrome */
+
+.footer {
+  --ivory: #f4f1ea;
+  --ivory-dim: #c8c3b8;
+  --meta: #7a776f;
+  --line: rgba(244, 241, 234, 0.14);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  color: var(--ivory);
+  background: #050505;
+  z-index: 20;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding-left: var(--section-pad-x);
+  padding-right: var(--section-pad-x);
+}
+
+/* 01 — Opening composition */
+.opening {
+  padding-top: clamp(5.5rem, 8vw, 7.5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4.25rem);
+}
+
+.metaRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(2.25rem, 4.5vw, 4rem);
+}
+
+.meta {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--meta);
+  font-weight: 500;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: end;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  color: var(--ivory);
+  font-size: clamp(2.4rem, 7.4vw, 6.75rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+}
+
+.headlineLine {
+  display: block;
+}
+
+.support {
+  max-width: 17.5rem;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.45;
+  color: var(--ivory-dim);
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+/* 02 — Dispatch + navigation */
+.mid {
+  padding-bottom: clamp(2rem, 4vw, 3.25rem);
+}
+
+.dispatch {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.dispatchHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.35rem;
+}
+
+.dispatchLabel {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  font-weight: 500;
+}
+
+.dispatchCopy {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--meta);
+  letter-spacing: 0.02em;
+}
+
+.form {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 52rem;
+}
+
+.field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0.55rem 0 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  outline: none;
+}
+
+.input::placeholder {
+  color: #5c5a54;
+}
+
+.hairline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--line);
+  transform-origin: left center;
+  transition: transform 0.5s var(--ease), background-color 0.4s var(--ease);
+}
+
+.sweep {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 28%;
+  background: linear-gradient(90deg, transparent, rgba(244, 241, 234, 0.7), transparent);
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form:focus-within .hairline {
+  transform: scaleX(1.04);
+  background: rgba(244, 241, 234, 0.55);
+}
+
+.form:focus-within .sweep {
+  animation: footerSweep 1.15s var(--ease) 1;
+}
+
+.form:focus-within .join {
+  opacity: 1;
+}
+
+.form:focus-within .joinArrow {
+  transform: translate(3px, -2px);
+}
+
+@keyframes footerSweep {
+  from {
+    opacity: 0;
+    transform: translateX(-40%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(380%);
+  }
+}
+
+.join {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  padding: 0.4rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  opacity: 0.72;
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
+.join:hover {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.joinArrow {
+  display: inline-block;
+  transition: transform 0.4s var(--ease);
+}
+
+.join:hover .joinArrow {
+  transform: translate(4px, -3px);
+}
+
+.thanks {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ivory-dim);
+  padding: 0.6rem 0 0.9rem;
+  border-bottom: 1px solid var(--line);
+  max-width: 52rem;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 5vw, 4.5rem);
+  row-gap: clamp(1.75rem, 3vw, 2.5rem);
+  width: 100%;
+}
+
+.navGroup {
+  min-width: 0;
+}
+
+.navTitle {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #a8a49a;
+  font-weight: 500;
+}
+
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ivory);
+  line-height: 1;
+}
+
+.navClip {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.15em;
+  vertical-align: bottom;
+}
+
+.navClipTrack {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.42s var(--ease);
+}
+
+.navClipTrack span {
+  display: block;
+  height: 1.15em;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: var(--ivory);
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+.navLink:hover .navClipTrack,
+.navLink:focus-visible .navClipTrack {
+  transform: translateY(-50%);
+}
+
+.navArrow {
+  font-size: 0.7em;
+  opacity: 0.5;
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+
+.navLink:hover .navArrow {
+  opacity: 1;
+  transform: translate(3px, -2px);
+}
+
+/* 03 — Wordmark stage */
+.wordmarkStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(7.5rem, 20vw, 13.5rem);
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  user-select: none;
+  cursor: default;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image:
+    linear-gradient(to right, #f4f1ea 1px, transparent 1px),
+    linear-gradient(to bottom, #f4f1ea 1px, transparent 1px);
+  background-size: 12.5% 50%;
+}
+
+.ghostGlyph {
+  position: absolute;
+  left: 6%;
+  top: 42%;
+  transform: translateY(-50%);
+  font-family: var(--font-serif);
+  font-size: clamp(8rem, 28vw, 22rem);
+  line-height: 0.7;
+  color: var(--ivory);
+  opacity: 0.018;
+  pointer-events: none;
+  letter-spacing: -0.06em;
+}
+
+.coords {
+  position: absolute;
+  left: var(--section-pad-x);
+  bottom: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.22);
+  pointer-events: none;
+}
+
+.light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(244, 241, 234, 0.09) 0%, rgba(244, 241, 234, 0.02) 42%, transparent 70%);
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform, opacity;
+  transition: opacity 0.45s var(--ease);
+}
+
+.wordmark {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(3.1rem, 14.5vw, 11.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.055em;
+  color: var(--ivory);
+  padding: 0.14em 0 0.1em;
+  overflow: visible;
+}
+
+.letterOuter {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.letterInner {
+  position: relative;
+  display: inline-block;
+  will-change: transform, filter;
+}
+
+.glyph {
+  display: block;
+  line-height: 0.82;
+}
+
+.glyphStroke {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  -webkit-text-stroke: 1.25px var(--ivory);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 04 — Legal */
+.legal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem 2.5rem;
+  padding: 0.75rem 0 1.1rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+
+.legalGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1.35rem;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.5rem;
+}
+
+.legalLink {
+  position: relative;
+  color: var(--meta);
+  padding-bottom: 0.15rem;
+}
+
+.legalLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ivory);
+  transition: width 0.4s var(--ease);
+}
+
+.legalLink:hover {
+  color: var(--ivory);
+}
+
+.legalLink:hover::after {
+  width: 100%;
+}
+
+.topLink {
+  margin-left: auto;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .legal {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stage {
+    grid-template-columns: minmax(0, 1.7fr) minmax(14rem, 0.7fr);
+    gap: 4rem;
+  }
+
+  .support {
+    justify-self: end;
+    padding-bottom: 0.35rem;
+  }
+
+  .dispatch {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.38fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .dispatchHead {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .metaRow {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .join {
+    align-self: flex-end;
+    opacity: 1;
+  }
+
+  .wordmarkStage {
+    height: 5.75rem;
+  }
+
+  .coords,
+  .ghostGlyph,
+  .light,
+  .grid {
+    display: none;
+  }
+
+  .topLink {
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLink::after,
+  .navClipTrack,
+  .join,
+  .joinArrow,
+  .hairline,
+  .legalLink::after {
+    transition: none;
+  }
+
+  .form:focus-within .sweep {
+    animation: none;
+  }
+}

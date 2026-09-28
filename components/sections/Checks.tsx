@@ -29,7 +29,6 @@ export function Checks() {
           pin: pinWrap,
           scrub: 0.8,
           anticipatePin: 1,
-          refreshPriority: 7,
         },
       });
 

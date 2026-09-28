@@ -194,7 +194,6 @@ export function Collection() {
         pin: pinSection,
         scrub: 1.0, // Smooth interpolation with no jitter
         anticipatePin: 1,
-        refreshPriority: 9,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           updateCarousel(self.progress);

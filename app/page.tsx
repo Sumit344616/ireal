@@ -2,7 +2,6 @@ import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
 import { BrandStory } from "@/components/sections/BrandStory";
 import { Collection } from "@/components/sections/Collection";
-import { RowReveal } from "@/components/sections/RowReveal";
 import { Essentials } from "@/components/sections/Essentials";
 import { Shirts } from "@/components/sections/Shirts";
 import { Checks } from "@/components/sections/Checks";
@@ -31,10 +30,7 @@ export default function Home() {
       {/* 03: The Collection (Horizontal Travel with Center Scale WOW) */}
       <Collection />
 
-      {/* 04: Row Reveal (Canva-Style Choreographed Motion Row) */}
-      <RowReveal />
-
-      {/* 05: The Essential / T-Shirt (Independent CUT / WEIGHT / FORM Reveals) */}
+      {/* 04: The Essential / T-Shirt (Independent CUT / WEIGHT / FORM Reveals) */}
       <Essentials />
 
       {/* 06: The Shirt in Detail (Macro Journey from Collar to Weave) */}

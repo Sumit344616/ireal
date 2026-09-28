@@ -42,7 +42,6 @@ export function Hero() {
           pin: pinTarget,
           scrub: 0.8,
           anticipatePin: 1,
-          refreshPriority: 10,
         },
       });
 

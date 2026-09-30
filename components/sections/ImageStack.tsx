@@ -150,7 +150,7 @@ export function ImageStack() {
         <div className="container-wide w-full flex items-center justify-between border-b border-[#080808]/15 pb-4 z-20">
           <div>
             <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#5A5A5A] block mb-1">
-              09 / ARCHIVAL DECK
+              ARCHIVAL DECK
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-[0.12em] uppercase font-normal">
               IMAGE STACK.
@@ -204,7 +204,7 @@ export function ImageStack() {
         {/* Footer Meta */}
         <div className="container-wide w-full flex items-center justify-between border-t border-[#080808]/15 pt-4 z-20 text-[#5A5A5A]">
           <span className="font-sans text-[10px] tracking-[0.25em] uppercase">
-            IREAL ARCHIVE &bull; VOL. 01 / 04
+            IREAL ARCHIVE &bull; ARCHIVAL PRINTS
           </span>
           <span className="font-sans text-[10px] tracking-[0.25em] uppercase">
             NEXT: CRAFT &bull; MADE WITH INTENT &rarr;

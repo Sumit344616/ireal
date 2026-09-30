@@ -277,9 +277,6 @@ export function Collection() {
         {/* ── Collection Section Header ──────────────────────────────────────── */}
         <div className="container-wide w-full flex items-end justify-between border-b border-white/10 pb-5 z-20 shrink-0">
           <div>
-            <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.34em] uppercase text-[#9A9A9A] block mb-2 font-medium">
-              02 / PERMANENT LINE
-            </span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl tracking-[0.12em] uppercase font-normal text-[#F4F1EA]">
               THE COLLECTION.
             </h2>
@@ -395,8 +392,8 @@ export function Collection() {
 
                   {/* Top Architectural Corner Index Tag */}
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
-                    <span className="font-serif text-[11px] tracking-[0.22em] text-white/70 uppercase">
-                      LOOK {item.number}
+                    <span className="font-serif text-[10px] tracking-[0.24em] text-white/60 uppercase">
+                      IREAL RUNWAY
                     </span>
                     <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
                   </div>
@@ -404,10 +401,6 @@ export function Collection() {
                   {/* Bottom Typography Block inside Card */}
                   <div className="absolute bottom-5 left-5 right-5 pointer-events-none">
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="font-serif text-sm font-light text-[#C4C0B6]">
-                        {item.number}
-                      </span>
-                      <span className="w-3 h-[1px] bg-white/40" />
                       <span className="font-sans text-[9.5px] tracking-[0.28em] uppercase font-semibold text-white/90">
                         {item.category}
                       </span>
@@ -436,14 +429,10 @@ export function Collection() {
 
         {/* ── Bottom Navigation & Carousel Progress Bar ─────────────────────── */}
         <div className="container-wide w-full flex items-center justify-between border-t border-white/10 pt-4 z-20 text-[#9A9A9A] shrink-0">
-          {/* Left: Active Look Tracker */}
+          {/* Left: Section Label */}
           <div className="flex items-center gap-3">
-            <span className="font-serif text-sm font-semibold text-[#F4F1EA]">
-              {COLLECTION_ITEMS[activeIndex].number}
-            </span>
-            <span className="w-4 h-[1px] bg-white/30" />
-            <span className="font-sans text-[10px] tracking-[0.24em] uppercase text-[#C4C0B6]">
-              {COLLECTION_ITEMS[activeIndex].title}
+            <span className="font-sans text-[10px] tracking-[0.26em] uppercase text-[#777]">
+              CONTINUOUS TRAVERSAL
             </span>
           </div>
 
@@ -464,10 +453,10 @@ export function Collection() {
             ))}
           </div>
 
-          {/* Right: Runway Progress Count */}
+          {/* Right: Runway Label */}
           <div className="flex items-center gap-2">
             <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-[#9A9A9A]">
-              01 &mdash; 06 ARCHITECTURAL RUNWAY
+              ARCHITECTURAL RUNWAY
             </span>
           </div>
         </div>

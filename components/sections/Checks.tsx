@@ -132,7 +132,7 @@ export function Checks() {
           className="absolute top-28 sm:top-36 left-6 sm:left-16 z-30 pointer-events-none will-change-transform"
         >
           <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#9A9A9A] block mb-2">
-            06 / MONOCHROME GEOMETRY
+            MONOCHROME GEOMETRY
           </span>
           <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-[0.06em] uppercase leading-[0.95]">
             CHECK
@@ -184,7 +184,7 @@ export function Checks() {
                 THE CHECK RE-ENGINEERED
               </span>
               <span className="font-sans text-[10px] tracking-[0.25em] text-[#C4C0B6] uppercase">
-                LOOK 06 / EDITION
+                ARCHITECTURAL EDITION
               </span>
             </div>
           </div>

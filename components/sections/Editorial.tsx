@@ -174,7 +174,7 @@ export function Editorial() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[#080808]/15 pb-6 mb-20">
           <div>
             <span className="font-sans text-[11px] tracking-[0.3em] uppercase text-[#5A5A5A] block mb-2">
-              07 / EDITORIAL CAMPAIGN
+              EDITORIAL CAMPAIGN
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-[0.1em] uppercase font-normal">
               IREAL / EDITORIAL.

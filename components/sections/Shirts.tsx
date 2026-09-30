@@ -99,7 +99,7 @@ export function Shirts() {
         <div className="container-wide w-full flex items-center justify-between border-b border-white/10 pb-6 z-20">
           <div>
             <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#9A9A9A] block mb-1">
-              05 / ANATOMY STUDY
+              ANATOMY STUDY
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-[0.12em] uppercase font-normal text-[#F4F1EA]">
               THE SHIRT IN DETAIL.

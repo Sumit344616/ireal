@@ -86,7 +86,7 @@ export function Campaign() {
       >
         <div className="flex items-center justify-between text-[#C4C0B6] border-b border-white/10 pb-4">
           <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase">
-            12 / THE VISUAL HORIZON
+            THE VISUAL HORIZON
           </span>
           <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase">
             IREAL / AUTUMN 2026

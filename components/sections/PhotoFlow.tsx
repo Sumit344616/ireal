@@ -122,7 +122,7 @@ export function PhotoFlow() {
         <div className="container-wide w-full flex items-center justify-between border-b border-white/10 pb-4 z-20">
           <div>
             <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#9A9A9A] block mb-1">
-              08 / STUDIO WORKTABLE
+              STUDIO WORKTABLE
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-[0.14em] uppercase font-normal">
               PHOTO FLOW.

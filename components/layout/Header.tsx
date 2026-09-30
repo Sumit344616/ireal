@@ -99,9 +99,9 @@ export function Header() {
     : "#080808";
 
   const contactBtnClass = isTransparent
-    ? "border-[#F4F1EA]/45 text-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#080808]"
+    ? "border-[#F4F1EA]/60 text-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#080808]"
     : isDarkHeader
-    ? "border-[#F4F1EA]/50 text-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#080808]"
+    ? "border-[#F4F1EA]/70 text-[#F4F1EA] hover:bg-[#F4F1EA] hover:text-[#080808]"
     : "border-[#080808] bg-[#080808] text-[#F4F1EA] hover:bg-transparent hover:text-[#080808]";
 
   return (
@@ -149,11 +149,11 @@ export function Header() {
           <div className="flex items-center gap-4">
             <a
               href="#contact"
-              className={`group hidden sm:inline-flex items-center gap-2.5 h-9 pl-5 pr-4 rounded-full border text-[10px] font-sans tracking-[0.26em] font-semibold transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${contactBtnClass}`}
+              className={`group hidden sm:inline-flex items-center justify-center gap-3 h-10 px-7 min-w-[136px] rounded-full border-[1.5px] text-[11px] font-sans tracking-[0.26em] font-semibold transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${contactBtnClass}`}
             >
               <span>CONTACT</span>
               <span
-                className="text-[11px] leading-none transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="text-[12px] leading-none transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 aria-hidden="true"
               >
                 ↗

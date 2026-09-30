@@ -193,7 +193,7 @@ export function BigTypographyTransition() {
 
         {/* Cinematic Corner Coordinates */}
         <div className="absolute top-10 left-10 z-30 font-sans text-[10px] tracking-[0.3em] uppercase text-[#080808] mix-blend-difference invert sm:invert-0 pointer-events-none">
-          11 / SPATIAL TYPOGRAPHY PORTAL
+          SPATIAL TYPOGRAPHY PORTAL
         </div>
         <div className="absolute bottom-10 right-10 z-30 font-sans text-[10px] tracking-[0.3em] uppercase text-[#080808] mix-blend-difference invert sm:invert-0 pointer-events-none">
           FRACTURED MONOCHROME &bull; 2026

@@ -89,7 +89,7 @@ export function Essentials() {
         {/* Section Tag */}
         <div className="flex items-center justify-between border-b border-[#080808]/15 pb-6 mb-16">
           <span className="font-sans text-[11px] tracking-[0.3em] uppercase text-[#5A5A5A]">
-            04 / THE ESSENTIAL
+            THE ESSENTIAL
           </span>
           <span className="font-sans text-[11px] tracking-[0.25em] uppercase text-[#5A5A5A]">
             HEAVYWEIGHT JERSEY &bull; 320 GSM

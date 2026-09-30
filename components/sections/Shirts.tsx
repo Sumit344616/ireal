@@ -14,10 +14,10 @@ export function Shirts() {
   const captionRef = useRef<HTMLParagraphElement>(null);
 
   const stages = [
-    { name: "01 / FULL SILHOUETTE", caption: "Impeccable drape tailored for natural shoulder movement." },
-    { name: "02 / COLLAR ARCHITECTURE", caption: "Reinforced interfacing with razor-sharp spread geometry." },
-    { name: "03 / CONCEALED BUTTON PLACKET", caption: "Genuine mother-of-pearl buttons seated under clean fly placket." },
-    { name: "04 / TACTILE POPLIN WEAVE", caption: "Ultra-fine Italian two-ply poplin with crisp matte finish." },
+    { name: "FULL SILHOUETTE", caption: "Impeccable drape tailored for natural shoulder movement." },
+    { name: "COLLAR ARCHITECTURE", caption: "Reinforced interfacing with razor-sharp spread geometry." },
+    { name: "CONCEALED BUTTON PLACKET", caption: "Genuine mother-of-pearl buttons seated under clean fly placket." },
+    { name: "TACTILE POPLIN WEAVE", caption: "Ultra-fine Italian two-ply poplin with crisp matte finish." },
   ];
 
   useEffect(() => {
@@ -98,9 +98,6 @@ export function Shirts() {
         {/* Header Bar */}
         <div className="container-wide w-full flex items-center justify-between border-b border-white/10 pb-6 z-20">
           <div>
-            <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#9A9A9A] block mb-1">
-              ANATOMY STUDY
-            </span>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-[0.12em] uppercase font-normal text-[#F4F1EA]">
               THE SHIRT IN DETAIL.
             </h2>
@@ -157,11 +154,11 @@ export function Shirts() {
         {/* Footer Navigation Bar */}
         <div className="container-wide w-full flex items-center justify-between border-t border-white/10 pt-4 z-20 text-[#9A9A9A]">
           <div className="flex items-center gap-6 sm:gap-10 text-[10px] sm:text-[11px] font-sans tracking-[0.22em] uppercase">
-            <span className="text-[#F4F1EA] font-semibold">01 COLLAR</span>
+            <span className="text-[#F4F1EA] font-semibold">COLLAR</span>
             <span>&rarr;</span>
-            <span className="text-[#C4C0B6]">02 PLACKET</span>
+            <span className="text-[#C4C0B6]">PLACKET</span>
             <span>&rarr;</span>
-            <span className="text-[#9A9A9A]">03 TEXTURE</span>
+            <span className="text-[#9A9A9A]">TEXTURE</span>
           </div>
           <span className="font-sans text-[10px] tracking-[0.25em] uppercase hidden md:inline">
             ZERO SPLICED THREADS &bull; REINFORCED GUSSET

@@ -121,9 +121,6 @@ export function PhotoFlow() {
         {/* Editorial Top Marker */}
         <div className="container-wide w-full flex items-center justify-between border-b border-white/10 pb-4 z-20">
           <div>
-            <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#9A9A9A] block mb-1">
-              STUDIO WORKTABLE
-            </span>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-[0.14em] uppercase font-normal">
               PHOTO FLOW.
             </h2>
@@ -152,7 +149,7 @@ export function PhotoFlow() {
               />
             </div>
             <div className="pt-2 text-[9px] font-sans tracking-[0.2em] uppercase text-[#9A9A9A] flex justify-between">
-              <span>PRINT 01</span>
+              <span>ATELIER</span>
               <span>SILHOUETTE</span>
             </div>
           </div>
@@ -174,7 +171,7 @@ export function PhotoFlow() {
               />
             </div>
             <div className="pt-2 text-[9px] font-sans tracking-[0.2em] uppercase text-[#9A9A9A] flex justify-between">
-              <span>PRINT 02</span>
+              <span>ATELIER</span>
               <span>STRUCTURE</span>
             </div>
           </div>
@@ -196,7 +193,7 @@ export function PhotoFlow() {
               />
             </div>
             <div className="pt-2 text-[9px] font-sans tracking-[0.2em] uppercase text-[#9A9A9A] flex justify-between">
-              <span>PRINT 03</span>
+              <span>ATELIER</span>
               <span>TACTILE WEAVE</span>
             </div>
           </div>
@@ -218,7 +215,7 @@ export function PhotoFlow() {
               />
             </div>
             <div className="pt-2 text-[9px] font-sans tracking-[0.2em] uppercase text-[#9A9A9A] flex justify-between">
-              <span>PRINT 04</span>
+              <span>ATELIER</span>
               <span>MOOD</span>
             </div>
           </div>

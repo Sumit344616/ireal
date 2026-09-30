@@ -124,12 +124,12 @@ export function BrandStory() {
 
           {/* Right Column: Architectural Visual Composition */}
           <div className="lg:col-span-6 relative">
-            <div className="relative max-w-[490px] mx-auto lg:ml-auto">
+            <div className="relative max-w-[520px] lg:max-w-[540px] mx-auto lg:ml-auto">
               <div className="overflow-hidden bg-[#141414] shadow-[0_25px_65px_rgba(0,0,0,0.18)]">
                 <div
                   ref={mainImgRef}
-                  className="relative w-full will-change-transform max-h-[500px] sm:max-h-[540px]"
-                  style={{ aspectRatio: "4 / 4.8", minHeight: "380px" }}
+                  className="relative w-full will-change-transform max-h-[580px] sm:max-h-[620px] lg:max-h-[650px]"
+                  style={{ aspectRatio: "4 / 5.2", minHeight: "440px" }}
                 >
                   <Image
                     src="/images/brand_story_main.jpg"

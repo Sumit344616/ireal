@@ -8,25 +8,25 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const STACK_PHOTOS = [
   {
     src: "/images/runway_01.jpg",
-    title: "PLATE I: SHADOW & FORM",
+    title: "SHADOW & FORM",
     caption: "High collar wool trench coat, cut straight with sharp hemline.",
     rotation: -1.5,
   },
   {
     src: "/images/runway_02.jpg",
-    title: "PLATE II: REFINED CADENCE",
+    title: "REFINED CADENCE",
     caption: "Tapered trousers and charcoal overshirt in double-faced cotton.",
     rotation: 0.8,
   },
   {
     src: "/images/style_formal.jpg",
-    title: "PLATE III: MONOCHROME STATURE",
+    title: "MONOCHROME STATURE",
     caption: "Black wool tuxedo jacket with peak lapels and hidden chest pocket.",
     rotation: -1.0,
   },
   {
     src: "/images/style_casual.jpg",
-    title: "PLATE IV: UNSTRUCTURED EASE",
+    title: "UNSTRUCTURED EASE",
     caption: "Understated luxury casual styling engineered for all-day comfort.",
     rotation: 1.2,
   },
@@ -149,9 +149,6 @@ export function ImageStack() {
         {/* Top Header */}
         <div className="container-wide w-full flex items-center justify-between border-b border-[#080808]/15 pb-4 z-20">
           <div>
-            <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#5A5A5A] block mb-1">
-              ARCHIVAL DECK
-            </span>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-[0.12em] uppercase font-normal">
               IMAGE STACK.
             </h2>

@@ -104,7 +104,7 @@ export function Campaign() {
 
         <div className="flex items-center justify-between text-[#9A9A9A] border-t border-white/10 pt-4">
           <span className="font-sans text-[10px] tracking-[0.25em] uppercase">
-            SERIES 01 &bull; FRAME 09
+            SERIES &bull; CAMPAIGN FINALE
           </span>
           <span className="font-sans text-[10px] tracking-[0.25em] uppercase">
             CONTINUE FOR FINAL STATEMENT &rarr;

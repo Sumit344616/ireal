@@ -105,9 +105,6 @@ export function Craft() {
         {/* Section Header */}
         <div className="container-wide w-full flex items-center justify-between border-b border-white/10 pb-4 z-20">
           <div>
-            <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#9A9A9A] block mb-1">
-              MATERIAL PERSPECTIVE
-            </span>
             <h2 className="font-serif text-3xl sm:text-5xl tracking-[0.12em] uppercase font-normal text-[#F4F1EA]">
               MADE WITH INTENT.
             </h2>
@@ -144,7 +141,7 @@ export function Craft() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
             <div className="absolute bottom-6 left-6 text-[#F4F1EA]">
               <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-[#C4C0B6]">
-                PHASE 01 &bull; MACRO WEAVE
+                MACRO WEAVE
               </span>
               <h3 className="font-serif text-xl sm:text-2xl tracking-wider uppercase mt-1">
                 PURE TACTILE ARCHITECTURE
@@ -169,7 +166,7 @@ export function Craft() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
             <div className="absolute bottom-6 left-6 text-[#F4F1EA]">
               <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-[#C4C0B6]">
-                PHASE 02 &bull; STRUCTURED GARMENT
+                STRUCTURED GARMENT
               </span>
               <h3 className="font-serif text-xl sm:text-2xl tracking-wider uppercase mt-1">
                 SEAMLESS TORSO DRAPE
@@ -194,7 +191,7 @@ export function Craft() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
             <div className="absolute bottom-6 left-6 text-[#F4F1EA]">
               <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-[#C4C0B6]">
-                PHASE 03 &bull; INDIVIDUAL PRESENCE
+                INDIVIDUAL PRESENCE
               </span>
               <h3 className="font-serif text-xl sm:text-2xl tracking-wider uppercase mt-1">
                 THE REALIZED HUMAN PRESENCE

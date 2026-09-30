@@ -131,9 +131,6 @@ export function Checks() {
           ref={textBlockRef}
           className="absolute top-28 sm:top-36 left-6 sm:left-16 z-30 pointer-events-none will-change-transform"
         >
-          <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#9A9A9A] block mb-2">
-            MONOCHROME GEOMETRY
-          </span>
           <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-[0.06em] uppercase leading-[0.95]">
             CHECK
             <br />

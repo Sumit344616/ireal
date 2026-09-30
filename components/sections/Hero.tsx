@@ -276,7 +276,7 @@ export function Hero() {
             >
               <span className="w-6 sm:w-8 h-[1px] bg-white/50" />
               <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.34em] uppercase text-[#E0DCD3] font-medium">
-                COLLECTION 01 &bull; EDITORIAL CAMPAIGN
+                EDITORIAL CAMPAIGN
               </span>
               <span className="w-6 sm:w-8 h-[1px] bg-white/50" />
             </div>

@@ -173,9 +173,6 @@ export function Editorial() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[#080808]/15 pb-6 mb-20">
           <div>
-            <span className="font-sans text-[11px] tracking-[0.3em] uppercase text-[#5A5A5A] block mb-2">
-              EDITORIAL CAMPAIGN
-            </span>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl tracking-[0.1em] uppercase font-normal">
               IREAL / EDITORIAL.
             </h2>
@@ -202,7 +199,7 @@ export function Editorial() {
             />
             <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 text-[#F4F1EA]">
               <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-[#C4C0B6]">
-                PLATE 01 &bull; FULL-SCREEN REVEAL
+                FULL-SCREEN REVEAL
               </span>
               <h3 className="font-serif text-2xl sm:text-4xl tracking-wider uppercase mt-1">
                 AVANT-GARDE ARCHITECTURE
@@ -229,7 +226,7 @@ export function Editorial() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute bottom-4 left-4 text-[#F4F1EA] text-[10px] font-sans tracking-[0.25em] uppercase">
-                PLATE 02 &bull; VERTICAL MASK
+                VERTICAL MASK
               </div>
             </div>
           </div>
@@ -250,7 +247,7 @@ export function Editorial() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute bottom-4 left-4 text-[#F4F1EA] text-[10px] font-sans tracking-[0.25em] uppercase">
-                PLATE 03 &bull; DIAGONAL REVEAL
+                DIAGONAL REVEAL
               </div>
             </div>
             <p className="font-sans text-xs tracking-[0.2em] uppercase text-[#5A5A5A] max-w-sm">
@@ -278,7 +275,7 @@ export function Editorial() {
               />
             </div>
             <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-[#5A5A5A]">
-              PLATE 04 &bull; HORIZONTAL PAN
+              HORIZONTAL PAN
             </span>
           </div>
 
@@ -299,7 +296,7 @@ export function Editorial() {
               />
             </div>
             <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-[#5A5A5A]">
-              PLATE 05 &bull; SHARPEN FROM BLUR
+              SHARPEN FROM BLUR
             </span>
           </div>
 
@@ -320,7 +317,7 @@ export function Editorial() {
               />
             </div>
             <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-[#5A5A5A]">
-              PLATE 06 &bull; SLOW ZOOM
+              SLOW ZOOM
             </span>
           </div>
         </div>
@@ -343,7 +340,7 @@ export function Editorial() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
             <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 text-[#F4F1EA]">
               <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-[#C4C0B6]">
-                PLATE 07 &bull; IMAGE WIPE
+                IMAGE WIPE
               </span>
               <h3 className="font-serif text-xl sm:text-3xl tracking-wider uppercase mt-1">
                 RELAXED PRECISION
